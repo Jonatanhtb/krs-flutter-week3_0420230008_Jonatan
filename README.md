@@ -96,3 +96,63 @@ C.3 Design decision task
 
     4. Remaining questions : 
         “How do i make sure the data isn't fake or hardcoded? How do i connect to the campus MySQL/API database?”
+
+
+
+D. HOMEWORK WEEK 4
+ Assignment Answers 
+
+ C.1 Thinking Questions
+
+  Why can’t StatelessWidget use setState()?
+    Answer: Because `StatelessWidget` is “fixed” or static. It's like a poster on the wall: once it's printed and hung up, the image can't change on its own. `setState()` is a tool for “redrawing” the screen, and `Stateless` doesn't have that tool because it's designed for static (fixed) displays.
+
+  What happens if setState() is removed from the button?
+    Answer: The data changes in the computer's brain (the variable increases), but the screen doesn't change. So the user sees that the SKS number is still 0, when in fact it may already be 3 or 6. `setState` is like telling a painter to repaint the wall so that the changes are visible to the eye.
+
+  Why is KrsDetailScreen better as StatelessWidget?
+    Answer: Because the KRS detail page usually only displays information (reads data), there are no calculation buttons or data input that cause the screen to change constantly. To make the application lighter, just use `Stateless`.
+
+ What kind of data should NOT be stored as state?
+    Answer: Data that will not change (such as a static application logo) or data that is too heavy and does not directly affect the display at that moment (for example, the entire contents of the campus student database). Only store data that needs to be displayed on the screen at that moment in the state.
+
+C.2 Debugging Challenge
+
+Error Code:
+`selectedCredits = selectedCredits + “3”;`
+
+ Identify the error:
+The error is in the quotation marks around the number “3”. The computer interprets it as text (string), not a number (integer).
+
+ Fix the code:
+`selectedCredits = selectedCredits + 3;` (Remove the quotation marks).
+
+ Explain why the error occurred:
+Because of the quotation marks, the computer thinks we want to connect the words. So if the initial credits are 0, adding “3” makes it “03” (text), not 3 (mathematics). Numbers should meet numbers so they can be added together.
+
+ C.3 Design Decision Task
+
+Enhance KRS screen:
+I added a “Take” button that can be changed to “Cancel,” and validation so that credits cannot be negative.
+
+ Why is validation needed?
+    Answer: So that it makes sense. How can a student take a course but have negative credits? Validation ensures that the data remains logical, for example, a minimum of 0 credits and a maximum of 24 credits.
+
+ How does state protect UI consistency?
+    Answer: State ensures that what the user sees (UI) is exactly the same as the data in the application memory. If the data changes to 3 credits, State forces the UI to display the number “3.” So there is no situation where the data has increased but the screen is still blank.
+
+Reflection (Week 4)
+
+  What confused me this week:
+    Honestly, it's a bit confusing to know when to use curly braces `{}` inside a function, and the concept of `setState`, which sometimes, if you forget to write it, doesn't cause an error but the application doesn't work properly.
+
+ How state changed UI behavior:
+    The application feels “alive.” Before, it was like opening a PDF file (just static), but now it can interact like a calculator. Pressing a button can change the text on the screen immediately.
+
+ Errors I faced and solutions:
+    I once got a “Type Mismatch” error because I wanted to add text to a number variable. The solution was to check the data type again; numbers must be `int`, text must be `String`.
+
+ Differences between Stateful and Stateless:
+    Stateless: Like a poster. Created once, displayed, done. Saves memory. Suitable for title text or icons.
+    Stateful: Like a whiteboard. Can be written on, erased, and written on again. Suitable for login forms, checkboxes, or SKS counters.
+

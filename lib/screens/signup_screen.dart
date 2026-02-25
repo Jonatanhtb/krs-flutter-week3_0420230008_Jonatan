@@ -28,7 +28,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
 
     if(pass!=confirm){
       ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(content: Text("Passwordnya beda tuh, cek lagi!")));
+        SnackBar(content: Text("Passwordnya tidak sama!")));
       return;
     }
 
@@ -46,21 +46,71 @@ class _SignUpScreenState extends State<SignUpScreen> {
     return Scaffold(
       appBar: AppBar(title: Text("Daftar Akun Baru")),
       body: Padding(padding: const EdgeInsets.all(20.0),
-        child: ListView(
+        child: Column(
           children: [
-            Text("Isi data diri kamu:", style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
+            Text("Isi data diri kamu:",
+             style: TextStyle(
+              fontSize: 18,
+              fontWeight: FontWeight.bold)
+              ),
+
             SizedBox(height: 20),
-            TextField(controller: _namaDepanController, decoration: InputDecoration(labelText: "Nama Depan", border: OutlineInputBorder())),
+
+            TextField(
+              controller: _namaDepanController,
+              decoration: InputDecoration(
+                labelText: "Nama Depan",
+                border: OutlineInputBorder())
+                ),
+
             SizedBox(height: 10),
-            TextField(controller: _namaBelakangController, decoration: InputDecoration(labelText: "Nama Belakang", border: OutlineInputBorder())),
+
+            TextField(
+              controller: _namaBelakangController, decoration: InputDecoration(
+                labelText: "Nama Belakang", 
+                border: OutlineInputBorder())),
+
             SizedBox(height: 10),
-            TextField(controller: _emailController, decoration: InputDecoration(labelText: "Email", border: OutlineInputBorder())),
+
+            TextField(
+              controller: _emailController,
+              decoration: InputDecoration(
+                labelText: "Email",
+                border: OutlineInputBorder())
+                ),
+
             SizedBox(height: 10),
-            TextField(controller: _passwordController, obscureText: true, decoration: InputDecoration(labelText: "Password", border: OutlineInputBorder())),
+
+            TextField(
+              controller: _passwordController,
+              obscureText: true,
+              decoration: InputDecoration(
+                labelText: "Password",
+                border: OutlineInputBorder())
+                ),
+
             SizedBox(height: 10),
-            TextField(controller: _confirmPasswordController, obscureText: true, decoration: InputDecoration(labelText: "Ulangi Password", border: OutlineInputBorder())),
+
+            TextField(
+              controller: _confirmPasswordController, obscureText: true,
+              decoration: InputDecoration(
+                labelText: "Confirm Password",
+                border: OutlineInputBorder())
+              ),
+
             SizedBox(height: 30),
-            SizedBox(height: 50, child: ElevatedButton(onPressed: _signup, child: Text("DAFTAR"))),
+
+            SizedBox(
+              width: double.infinity,
+              child: ElevatedButton(
+                style: ElevatedButton.styleFrom(
+                  backgroundColor: Colors.blue, 
+                  foregroundColor: Colors.white, 
+                ),
+                onPressed: _signup,
+                child: Text("DAFTAR"),
+              ),
+            ),
           ],
         ),
       ),

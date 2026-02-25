@@ -2,12 +2,11 @@ import 'package:flutter/material.dart';
 import 'signup_screen.dart';
 import 'profile_screen.dart';
 
-// --- INI KOTAK PENYIMPANAN SEMENTARA (GLOBAL) ---
-// Kita taruh di luar class supaya bisa dibaca oleh halaman Login DAN halaman Daftar.
-// Bayangkan ini seperti papan tulis di ruang tamu, siapa aja bisa tulis dan baca.
-String? emailYangTerdaftar;    // Disini kita simpan email dari halaman daftar
-String? passwordYangTerdaftar; // Disini kita simpan password dari halaman daftar
-String? namaYangTerdaftar;     // Disini kita simpan nama dari halaman daftar
+//ini kotak penyimpanan secara global
+// Kita taruh di luar class supaya bisa dibaca oleh halaman Login dan halaman daftar.
+String? emailYangTerdaftar;    // Disini simpan email dari halaman daftar
+String? passwordYangTerdaftar; // Disini simpan password dari halaman daftar
+String? namaYangTerdaftar;     // Disini simpan nama dari halaman daftar
 
 class LoginScreen extends StatefulWidget {
   @override
@@ -15,17 +14,17 @@ class LoginScreen extends StatefulWidget {
 }
 
 class _LoginScreenState extends State<LoginScreen> {
-  // Alat baca inputan
+  // Alat baca inputan dari user
   final _emailController = TextEditingController();
   final _passwordController = TextEditingController();
 
-  // --- LOGIKA MASUK ---
+  // LOGIKA MASUK DISINI
   void _login() {
-    // 1. Ambil apa yang diketik user sekarang
+    //Ambil apa yang diketik user sekarang
     String emailInput = _emailController.text;
     String passwordInput = _passwordController.text;
 
-    // 2. Cek: Apakah belum ada yang daftar sama sekali?
+    //ngecek apakah belum ada yang daftar sama sekali?
     if (emailYangTerdaftar == null) {
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(content: Text("Belum ada akun terdaftar! Daftar dulu yuk.")),
@@ -33,15 +32,15 @@ class _LoginScreenState extends State<LoginScreen> {
       return; // Stop
     }
 
-    // 3. Cek: Apakah Email & Password COCOK dengan yang disimpan tadi?
+    //ngecek apakah email & password cocok dengan yang disimpan tadi?
     if (emailInput == emailYangTerdaftar && passwordInput == passwordYangTerdaftar) {
       
-      // Kalau COCOK, boleh masuk ke Profile
-      Navigator.pushReplacement(
+      // Kalau cocok, boleh masuk ke Profile
+      Navigator.push(
         context,
         MaterialPageRoute(
           builder: (context) => ProfileScreen(
-            // Kita kirim data nama yang sudah disimpan tadi
+            // kirim data nama yang sudah disimpan tadi
             nama: namaYangTerdaftar ?? "User", 
             nim: emailYangTerdaftar ?? "-",
           ),
@@ -49,7 +48,7 @@ class _LoginScreenState extends State<LoginScreen> {
       );
 
     } else {
-      // 4. Kalau TIDAK COCOK
+      // Kalau gk cocok paswordnya
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(content: Text("Email atau Password salah! Coba ingat-ingat lagi.")),
       );
@@ -65,7 +64,14 @@ class _LoginScreenState extends State<LoginScreen> {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            Text("SILAHKAN LOGIN", style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold, color: Colors.blue)),
+            Text("SILAHKAN LOGIN",
+             style: TextStyle(
+              fontSize: 24,
+              fontWeight: FontWeight.bold,
+              color: Colors.blue
+              )
+            ),
+
             SizedBox(height: 30),
 
             // Input Email (Bukan username lagi, biar sinkron sama daftar)
@@ -73,6 +79,7 @@ class _LoginScreenState extends State<LoginScreen> {
               controller: _emailController,
               decoration: InputDecoration(labelText: "Email", border: OutlineInputBorder()),
             ),
+
             SizedBox(height: 15),
 
             // Input Password
@@ -81,12 +88,17 @@ class _LoginScreenState extends State<LoginScreen> {
               obscureText: true,
               decoration: InputDecoration(labelText: "Password", border: OutlineInputBorder()),
             ),
+            
             SizedBox(height: 20),
 
             // Tombol Masuk
             SizedBox(
               width: double.infinity,
               child: ElevatedButton(
+                style: ElevatedButton.styleFrom(
+                  backgroundColor: Colors.blue,
+                  foregroundColor: Colors.white, 
+                ),
                 onPressed: _login,
                 child: Text("MASUK"),
               ),
